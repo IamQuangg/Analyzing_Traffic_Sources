@@ -12,7 +12,7 @@
   Traffic sources analysis is about understanding where customers are coming from and which channels are driving the highest quality traffic.
     
     Select
-	    utm_source,
+      utm_source,
       utm_campaign,
       http_referer,
       count(distinct website_session_id) Sessions
@@ -32,7 +32,7 @@
   the conversion rate (CVR) from sessions to orders
 
     Select
-	    Count(distinct website_sessions.website_session_id) sessions,
+      Count(distinct website_sessions.website_session_id) sessions,
       Count(distinct order_id) orders,
       Count(distinct order_id)/Count(distinct website_sessions.website_session_id) * 100 conv_rt
     From website_sessions
@@ -63,6 +63,24 @@
 
   We were around 900 over 1000 and now we're down in the roughly 600 to 680 range for the last four weeks. The reason is that we have decreased the bid for this
   because the conversion rate is low as we analyzed above.
+  ## 1.3. Bid Optimization For Paid Traffic
+  	Select
+		website_sessions.device_type,
+    	Count(distinct website_sessions.website_session_id) Sessions,
+    	Count(distinct orders.order_id) Orders,
+    	Count(distinct orders.order_id) / Count(distinct website_sessions.website_session_id)*100 conv_rt
+	From website_sessions
+		Left join orders
+			On website_sessions.website_session_id = orders.website_session_id
+	Where website_sessions.created_at < '2012-05-11'
+		And utm_source = 'gsearch'
+    	And utm_campaign = 'nonbrand'
+	Group By 
+		website_sessions.device_type;
+  ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/5f623e75-1403-4c80-ae6b-32cab257b8bf)
+
+  Based on data provided, desktop performs way better than mobile and we should not run the same bid for desktop and mobile traffic, often in paid search campaigns.
+  We should increase bids for desktop specific traffic beacause it performs much better.
 
 
   
