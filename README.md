@@ -96,6 +96,10 @@
 	Order By sessions DESC
  ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/57bbbdcb-367a-42cc-89ef-d43b61e4da2a)
 
+ Ta có thể thấy "home" nhận được phần lớn lượt xem trang web trong khoảng thời gian này, tiếp theo là các "products" và "Original Mr. Fuzzy". "Home" và "Product" page là 
+ những trang thu hút nhiều người dùng nhất. Tuy nhiên, "top website pages" chỉ tập trung vào danh sách các trang web phổ biến nhất hoặc có hiệu suất tốt nhất trên toàn bộ 
+ trang web, do đó chúng ta sẽ đi tìm tiểu thêm trang web nào mà người dùng thường dùng để bắt đầu phiên truy cập.
+
   
 
 
