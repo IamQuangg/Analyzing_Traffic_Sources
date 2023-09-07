@@ -81,7 +81,7 @@
 
   Based on data provided, desktop performs way better than mobile and we should not run the same bid for desktop and mobile traffic, often in paid search campaigns.
   We should increase bids for desktop specific traffic beacause it performs much better.
- ## 2. Analyzing Website Performance
+ ## 2. Phân tích Hiệu suất Trang Web
  * Phân Tích Nội Dung Hàng Đầu Trên Trang Web (Analyzing Top Website Content)
 
    Phân tích nội dung trang web liên quan đến việc hiểu rõ những trang nào được người dùng xem nhiều nhất, để xác định nơi cần tập trung để cải trang web của bạn.
@@ -120,6 +120,51 @@
   "Home" là trang mà có lượng người dùng truy cập lần đầu tiên nhiều nhất. Do đó, ta nên dành thời gian để đảm bảo rằng trang này có hiệu suất tốt nhất để thỏa mãn 
   trải nghiệm người dùng.
 
+* Landing Page Performance & Testing
+
+  "Landing Page Performance & testing" là về việc hiểu về hiệu suất của các trang đích quan trọng của bạn và sau đó tiến hành kiểm tra để cải thiện kết quả.
+  ## 2.3. Tính Toán Tỉ Lệ THoát (Bounce Rate)
+
+		Create temporary table first_pageviews
+		Select
+			website_session_id,
+	    		Min(website_pageview_id) min_pageview_id
+		From website_pageviews
+		Where created_at < '2012-06-14'
+		Group By
+			website_session_id;
+	    
+		Create temporary table session_w_landing_home_page1
+		Select 
+			first_pageviews.website_session_id,
+	    		website_pageviews.pageview_url landing_page
+		From first_pageviews
+			left join website_pageviews
+				on website_pageviews.website_pageview_id = first_pageviews.min_pageview_id
+	  	Where
+			website_pageviews.pageview_url = '/home';
+	    
+		Create temporary table bounced_sessions
+		Select 
+			session_w_landing_home_page1.website_session_id,
+	    		session_w_landing_home_page1.landing_page,
+	    		Count(website_pageviews.website_pageview_id) count_of_page_view
+		From session_w_landing_home_page1
+			Left join website_pageviews
+				On website_pageviews.website_session_id = session_w_landing_home_page1.website_session_id
+		Group By
+			session_w_landing_home_page1.website_session_id,
+	    		session_w_landing_home_page1.landing_page
+		Having 
+		 	Count(website_pageviews.website_pageview_id) =1;
+	     	Sselect
+			Count(distinct session_w_landing_home_page1.website_session_id) total_sessions,
+	    		Count(distinct bounced_sessions.website_session_id) bounced_session,
+	    		Count(distinct bounced_sessions.website_session_id) / Count(distinct session_w_landing_home_page1.website_session_id) bounced_rt
+		From session_w_landing_home_page1
+			left join bounced_sessions
+				on session_w_landing_home_page1.website_session_id = bounced_sessions.website_session_id
+  
 
   
 
