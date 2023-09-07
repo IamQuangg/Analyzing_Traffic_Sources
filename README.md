@@ -48,7 +48,7 @@
   Tỷ lệ chuyển đổi khá thấp. Dựa trên phân tích này, chúng ta sẽ cần giảm mức chi tiêu cho quảng cáo tìm kiếm một chút. Chúng ta đang tiêu quá nhiều dựa 
   trên tỷ lệ chuyển đổi hiện tại.
   ## 1.2. Tối Ưu Hóa Chi Phí và Phân Tích Xu Hướng
-  Analyzing for bid optimization is about understanding the vablue of various segment of paid traffic, so that you can optimize your marketing budget.
+  Phân tích để tối ưu hóa đặt giá là về việc hiểu giá trị của các phân đoạn khác nhau trong lưu lượng trả phí, để bạn có thể tối ưu hóa ngân sách tiếp thị của doanh nghiệp.
 
     Select
 	      Min(date(created_at)) week_start,
