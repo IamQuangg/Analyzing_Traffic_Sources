@@ -128,7 +128,7 @@
 		Create temporary table first_pageviews
 		Select
 			website_session_id,
-	    		Min(website_pageview_id) min_pageview_id
+	 Min(website_pageview_id) min_pageview_id
 		From website_pageviews
 		Where created_at < '2012-06-14'
 		Group By
@@ -137,28 +137,28 @@
 		Create temporary table session_w_landing_home_page1
 		Select 
 			first_pageviews.website_session_id,
-	    		website_pageviews.pageview_url landing_page
+	 website_pageviews.pageview_url landing_page
 		From first_pageviews
 			left join website_pageviews
 				on website_pageviews.website_pageview_id = first_pageviews.min_pageview_id
-	  	Where
+	 Where
 			website_pageviews.pageview_url = '/home';
 	    
 		Create temporary table bounced_sessions
 		Select 
-			session_w_landing_home_page1.website_session_id,
+				session_w_landing_home_page1.website_session_id,
 	    		session_w_landing_home_page1.landing_page,
 	    		Count(website_pageviews.website_pageview_id) count_of_page_view
 		From session_w_landing_home_page1
 			Left join website_pageviews
 				On website_pageviews.website_session_id = session_w_landing_home_page1.website_session_id
 		Group By
-			session_w_landing_home_page1.website_session_id,
+				session_w_landing_home_page1.website_session_id,
 	    		session_w_landing_home_page1.landing_page
 		Having 
 		 	Count(website_pageviews.website_pageview_id) =1;
-	     	Sselect
-			Count(distinct session_w_landing_home_page1.website_session_id) total_sessions,
+	     	Select
+				Count(distinct session_w_landing_home_page1.website_session_id) total_sessions,
 	    		Count(distinct bounced_sessions.website_session_id) bounced_session,
 	    		Count(distinct bounced_sessions.website_session_id) / Count(distinct session_w_landing_home_page1.website_session_id) bounced_rt
 		From session_w_landing_home_page1
