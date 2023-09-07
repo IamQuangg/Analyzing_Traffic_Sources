@@ -164,6 +164,12 @@
 		From session_w_landing_home_page1
 			left join bounced_sessions
 				on session_w_landing_home_page1.website_session_id = bounced_sessions.website_session_id
+  ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/a33af91d-370c-4e46-a0ee-c9eedefcd281)
+
+  Chúng ta có thể thấy với tỷ lệ thoát 59.18%, điều này có nghĩa là khoảng 59.18% người truy cập đã rời khỏi trang web sau khi chỉ xem một trang duy nhất mà không thực
+  hiện thêm bất kỳ hành động nào khác. Tỷ lệ thoát cao có thể là dấu hiệu cho thấy cần phải xem xét và tối ưu hóa trải nghiệm người dùng trên trang web để giảm tỷ lệ thoát
+  và tăng khả năng tương tác của người dùng.
+
   
 
   
