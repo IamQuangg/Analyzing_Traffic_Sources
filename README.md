@@ -123,7 +123,7 @@
 * Landing Page Performance & Testing
 
   "Landing Page Performance & testing" là về việc hiểu về hiệu suất của các trang đích quan trọng của bạn và sau đó tiến hành kiểm tra để cải thiện kết quả.
-  ## 2.3. Tính Toán Tỉ Lệ THoát (Bounce Rate)
+  ## 2.3. Tính Toán Tỉ Lệ Thoát (Bounce Rate)
 
 		Create temporary table first_pageviews
 		Select
@@ -146,21 +146,21 @@
 	    
 		Create temporary table bounced_sessions
 		Select 
-				session_w_landing_home_page1.website_session_id,
-	    		session_w_landing_home_page1.landing_page,
-	    		Count(website_pageviews.website_pageview_id) count_of_page_view
+			session_w_landing_home_page1.website_session_id,
+	 		session_w_landing_home_page1.landing_page,
+	 		Count(website_pageviews.website_pageview_id) count_of_page_view
 		From session_w_landing_home_page1
 			Left join website_pageviews
 				On website_pageviews.website_session_id = session_w_landing_home_page1.website_session_id
 		Group By
-				session_w_landing_home_page1.website_session_id,
-	    		session_w_landing_home_page1.landing_page
+			session_w_landing_home_page1.website_session_id,
+	 		session_w_landing_home_page1.landing_page
 		Having 
 		 	Count(website_pageviews.website_pageview_id) =1;
-	     	Select
-				Count(distinct session_w_landing_home_page1.website_session_id) total_sessions,
-	    		Count(distinct bounced_sessions.website_session_id) bounced_session,
-	    		Count(distinct bounced_sessions.website_session_id) / Count(distinct session_w_landing_home_page1.website_session_id) bounced_rt
+	 	Select
+			Count(distinct session_w_landing_home_page1.website_session_id) total_sessions,
+	 		Count(distinct bounced_sessions.website_session_id) bounced_session,
+	 		Count(distinct bounced_sessions.website_session_id) / Count(distinct session_w_landing_home_page1.website_session_id) bounced_rt
 		From session_w_landing_home_page1
 			left join bounced_sessions
 				on session_w_landing_home_page1.website_session_id = bounced_sessions.website_session_id
