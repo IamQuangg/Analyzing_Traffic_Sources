@@ -8,8 +8,8 @@
   Sử dụng SQL để:
   + Truy cập và khám phá cơ sở dữ liệu.
   + Phân tích và tối ưu hóa các kênh tiếp thị kinh doanh, trang web và sản phẩm.
-## 1. Analyzing Top Traffic Sources
-  Traffic sources analysis is about understanding where customers are coming from and which channels are driving the highest quality traffic.
+## 1. Phân tích Các Lượng Truy Cập Hàng Đầu
+  Phân tích nguồn lưu lượng là về việc hiểu xem khách hàng đến từ đâu và các kênh nào đang đưa ra lưu lượng có chất lượng cao nhất.
     
     Select
       utm_source,
@@ -26,10 +26,10 @@
 	    Sessions DESC
   ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/bbc4b35f-4732-4b0d-bd4e-4478f1f6424f)
   
-  We can see that G search Non-brand is the most important thing for us to be focusing on right now.
-  ## 1.1. Analyzing Traffic Sources Conversion Rates
-  Base on calculating above, gsearch nonbrand is major traffic, but we need to understand if those sessions are driving sales. We can calculate
-  the conversion rate (CVR) from sessions to orders
+  Chúng ta có thể thấy rằng tìm kiếm google  và "Non-brand" là 2 nguồn chúng ta nên tập trung bởi vì chúng có lượng truy cập nhiều nhất.
+  ## 1.1. Phân Tích Tỷ Lệ Chuyển Đổi
+  Dựa vào việc tính toán ở trên, tìm kiếm Google không liên quan đến thương hiệu là nguồn lưu lượng chính, nhưng chúng ta cần hiểu xem những phiên truy 
+  cập đó có đang thúc đẩy doanh số bán hàng hay không. Chúng ta có thể tính toán tỷ lệ chuyển đổi (CVR) từ phiên truy cập sang đơn hàng.
 
     Select
       Count(distinct website_sessions.website_session_id) sessions,
@@ -45,7 +45,8 @@
         utm_campaign = 'nonbrand';
   ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/8c965c46-f79b-404f-8090-5291efda594f)
   
-  The conversion rate is quite low. Base on this analysis, we'll need to dial down search bid a bit. we're over spending based on the current conversion rate.
+  Tỷ lệ chuyển đổi khá thấp. Dựa trên phân tích này, chúng ta sẽ cần giảm mức chi tiêu cho quảng cáo tìm kiếm một chút. Chúng ta đang tiêu quá nhiều dựa 
+  trên tỷ lệ chuyển đổi hiện tại.
   ## 1.2. Bid Optimization & Trend Analysis
   Analyzing for bid optimization is about understanding the vablue of various segment of paid traffic, so that you can optimize your marketing budget.
 
