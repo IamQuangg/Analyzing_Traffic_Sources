@@ -47,7 +47,7 @@
   
   Tỷ lệ chuyển đổi khá thấp. Dựa trên phân tích này, chúng ta sẽ cần giảm mức chi tiêu cho quảng cáo tìm kiếm một chút. Chúng ta đang tiêu quá nhiều dựa 
   trên tỷ lệ chuyển đổi hiện tại.
-  ## 1.2. Bid Optimization & Trend Analysis
+  ## 1.2. Tối Ưu Hóa Chi Phí và Phân Tích Xu Hướng
   Analyzing for bid optimization is about understanding the vablue of various segment of paid traffic, so that you can optimize your marketing budget.
 
     Select
@@ -62,9 +62,9 @@
 	    week(created_at)
   ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/34e9a135-1a5a-446f-a987-01b1757d117f)
 
-  We were around 900 over 1000 and now we're down in the roughly 600 to 680 range for the last four weeks. The reason is that we have decreased the bid for this
-  because the conversion rate is low as we analyzed above.
-  ## 1.3. Bid Optimization For Paid Traffic
+  Chúng ta từng ở khoảng 900 trên 1000 lượng truy cập và hiện tại chúng ta đã giảm xuống mức xấp xỉ từ 600 đến 680 trong bốn tuần gần đây. Lý do là chúng ta đã 
+  giảm đặt giá cho điều này vì tỷ lệ chuyển đổi thấp như chúng ta đã phân tích ở trên.
+  ## 1.3. Tối Ưu Hóa Cho Lưu Lượng Trả Phí (Paid Traffic Optimization)
   	Select
 		website_sessions.device_type,
     	Count(distinct website_sessions.website_session_id) Sessions,
@@ -80,8 +80,9 @@
 		website_sessions.device_type;
   ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/5f623e75-1403-4c80-ae6b-32cab257b8bf)
 
-  Based on data provided, desktop performs way better than mobile and we should not run the same bid for desktop and mobile traffic, often in paid search campaigns.
-  We should increase bids for desktop specific traffic beacause it performs much better.
+  Dựa trên dữ liệu được cung cấp, máy tính hoạt động tốt hơn đáng kể so với di động và chúng ta không nên chạy cùng mức đặt giá cho lưu lượng máy tính 
+  và lưu lượng di động, thường trong các chiến dịch tìm kiếm trả phí. Chúng ta nên tăng mức đặt giá cho lưu lượng cụ thể trên máy tính vì nó hoạt động 
+  tốt hơn nhiều.
  ## 2. Phân tích Hiệu suất Trang Web
  * Phân Tích Nội Dung Hàng Đầu Trên Trang Web (Analyzing Top Website Content)
 
