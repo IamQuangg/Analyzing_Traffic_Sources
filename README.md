@@ -207,6 +207,12 @@
 		From session_w_count_lander  
 		Group by
 			yearweek(session_created_at)
+  ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/dc430d28-2599-4e16-b6bf-1b737f51d382)
+
+  Chúng ta có thể thấy rằng tỷ lệ thoát đang giảm theo thời gian, điều này có thể là tín hiệu tốt bởi vì có thể trang web có trải nghiệm người dùng tốt hơn,
+  hoặc nội dung hấp dẫn hơn, hoặc giao diện đẹp hơn. Dù là nguyên nhân nào thì cũng cho thấy trang web đang đi đúng hướng với thị hiếu của người dùng.
+  
+
 
 
   
