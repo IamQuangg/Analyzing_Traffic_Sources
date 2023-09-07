@@ -115,6 +115,11 @@
 	Where website_pageviews.created_at < '2012-06-12'
 	Group by 
 		pageview_url
+  ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/37f46bec-d6d5-4f73-83ee-a72495dafac2)
+
+  "Home" là trang mà có lượng người dùng truy cập lần đầu tiên nhiều nhất. Do đó, ta nên dành thời gian để đảm bảo rằng trang này có hiệu suất tốt nhất để thỏa mãn 
+  trải nghiệm người dùng.
+
 
   
 
