@@ -99,6 +99,22 @@
  Ta có thể thấy "home" nhận được phần lớn lượt xem trang web trong khoảng thời gian này, tiếp theo là các "products" và "Original Mr. Fuzzy". "Home" và "Product" page là 
  những trang thu hút nhiều người dùng nhất. Tuy nhiên, "top website pages" chỉ tập trung vào danh sách các trang web phổ biến nhất hoặc có hiệu suất tốt nhất trên toàn bộ 
  trang web, do đó chúng ta sẽ đi tìm tiểu thêm trang web nào mà người dùng thường dùng để bắt đầu phiên truy cập.
+ ## 2.2. Xác định Các Trang Đầu Vào Phổ Biến Nhất (Top Entry Pages)
+ 	create temporary table first_pageview1
+	Select
+		 website_session_id,
+   	 	 min(website_pageview_id) min_pv_id
+	From website_pageviews
+	Group by website_session_id;
+	Select 
+		pageview_url,
+    	Count(first_pageview1.website_session_id) sessions_hitting_this_landing_page
+	From first_pageview1
+		Left Join website_pageviews
+			On first_pageview1.min_pv_id = website_pageviews.website_pageview_id
+	Where website_pageviews.created_at < '2012-06-12'
+	Group by 
+		pageview_url
 
   
 
