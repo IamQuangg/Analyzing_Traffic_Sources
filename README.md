@@ -128,7 +128,7 @@
 		Create temporary table first_pageviews
 		Select
 			website_session_id,
-	 Min(website_pageview_id) min_pageview_id
+	 		Min(website_pageview_id) min_pageview_id
 		From website_pageviews
 		Where created_at < '2012-06-14'
 		Group By
