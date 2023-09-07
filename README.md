@@ -1,13 +1,13 @@
-# I. The Situation
-  You've just been hired as an Ecommerce Data Analyst for ABC Company, an online retailer which has just launched their first product.
+# I. Bối Cảnh
+  Bạn vừa mới được tuyển dụng làm Chuyên viên Phân tích Dữ liệu Thương mại điện tử cho Công ty ABC, một nhà bán lẻ trực tuyến vừa ra mắt sản phẩm đầu tiên của họ.
 
-  As the member of the startup team, you will work with the CEO, the Marketing Director, and the Website Manager to help steer the business.
-  First of all, you will analyze and optimize marketing channels, measure and test website conversion performance, and use data to understand 
-  the impact of new product launches.
+  Là thành viên của đội khởi nghiệp, bạn sẽ làm việc cùng CEO, Giám đốc Marketing và Quản lý Trang web để hỗ trợ trong việc điều hành doanh nghiệp.
+  Trước hết, bạn sẽ phân tích và tối ưu hóa các kênh tiếp thị, đo lường và kiểm tra hiệu suất chuyển đổi trên trang web và sử dụng dữ liệu để hiểu
+  tác động của việc ra mắt sản phẩm mới
 
-  Use SQL to:
-  + Access and explore the database.
-  + Analyze and optimize the business marketing channels, website, and product.
+  Sử dụng SQL để:
+  + Truy cập và khám phá cơ sở dữ liệu.
+  + Phân tích và tối ưu hóa các kênh tiếp thị kinh doanh, trang web và sản phẩm.
 ## 1. Analyzing Top Traffic Sources
   Traffic sources analysis is about understanding where customers are coming from and which channels are driving the highest quality traffic.
     
@@ -211,7 +211,71 @@
 
   Chúng ta có thể thấy rằng tỷ lệ thoát đang giảm theo thời gian, điều này có thể là tín hiệu tốt bởi vì có thể trang web có trải nghiệm người dùng tốt hơn,
   hoặc nội dung hấp dẫn hơn, hoặc giao diện đẹp hơn. Dù là nguyên nhân nào thì cũng cho thấy trang web đang đi đúng hướng với thị hiếu của người dùng.
-  
+   ## 2.5. Xây Dựng Hệ Thống Chuyển Đổi (Conversion Funnel)
+  Phân tích hệ thống chuyển đổi là về việc hiểu và tối ưu hóa từng bước trải nghiệm của người dùng trong hành trình của họ đến việc mua sản phẩm của bạn.
+
+	 	Create temporary table sessions_level_made_it
+		Select
+			website_session_id,
+			Max(product_page) product_made_it,
+	 		Max(mrfuzzy_page) mrfuzzy_made_it,
+	 		Max(cart_page) cart_made_it,
+			Max(shipping_page) shipping_made_it,
+	 		Max(billing_page) billing_made_it,
+			Max(thankyou_page) thankyou_made_it
+		From(
+		Select
+			website_sessions.website_session_id,
+	 		website_pageviews.pageview_url,
+	 		website_pageviews.created_at pageview_created_at,
+		 	Case when pageview_url = '/products' then 1 else 0 end product_page,
+	 		Case when pageview_url = '/the-original-mr-fuzzy' then 1 else 0 end mrfuzzy_page,
+	 		Case when pageview_url = '/cart' then 1 else 0 end cart_page,
+	 		Case when pageview_url = '/shipping' then 1 else 0 end shipping_page,
+	 		Case When pageview_url ='/billing' then 1 else 0 end billing_page,
+	 		Case when pageview_url = '/thank-you-for-your-order' then 1 else 0 end thankyou_page
+		From website_sessions
+			Left join website_pageviews
+				On website_pageviews.website_session_id = website_sessions.website_session_id
+		Where website_sessions.created_at between '2012-08-05' and '2012-09-05'
+			And website_sessions.utm_source = 'gsearch'
+	 		And website_sessions.utm_campaign ='nonbrand'
+		Order by
+			website_sessions.website_session_id
+		) as pageview_level
+		group by
+			website_session_id;
+	    
+	 	Select
+			Count(distinct website_session_id) sessions,
+	 		Count(distinct case when product_made_it = 1 then website_session_id else null end) to_products,
+	 		Count(distinct case when mrfuzzy_made_it = 1 then website_session_id else null end) to_mrfuzzy,
+			Count(distinct case when cart_made_it= 1 then website_session_id else null end) to_cart,
+	        	Count(distinct case when shipping_made_it = 1 then website_session_id else null end) to_shipping,
+	        	Count(distinct case when billing_made_it = 1 then website_session_id else null end) to_billing,
+	        	Count(distinct case when thankyou_made_it = 1 then website_session_id else null end) to_thankyou
+		From sessions_level_made_it;
+	    
+	    Select
+			Count(distinct case when product_made_it = 1 then website_session_id else null end) / Count(distinct website_session_id) lander_click_rt,
+		 	Count(distinct case when mrfuzzy_made_it = 1 then website_session_id else null end) /
+			Count(distinct case when product_made_it = 1 then website_session_id else null end) mr_fuzzy_click_rt,
+			Count(distinct case when cart_made_it= 1 then website_session_id else null end) /
+			Count(distinct case when mrfuzzy_made_it = 1 then website_session_id else null end) cart_click_rt,
+			Count(distinct case when shipping_made_it = 1 then website_session_id else null end) /
+			Count(distinct case when cart_made_it= 1 then website_session_id else null end) shipping_click_rt,
+		 	Count(distinct case when billing_made_it = 1 then website_session_id else null end) /
+		 	Count(distinct case when shipping_made_it = 1 then website_session_id else null end) billing_click_rt,
+		 	Count(distinct case when thankyou_made_it = 1 then website_session_id else null end) /
+		 	Count(distinct case when billing_made_it = 1 then website_session_id else null end) thankyou_click_rt
+ 	   From sessions_level_made_it;
+  ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/663edce9-f9f0-45ec-901c-c1545c4ce766)
+
+  Từ dữ liệu trên chúng ta nên tập trung vào lander, cart, và thankyou page do những trang này có tỷ lệ chuyển đổi khá thấp so với các trang khác. Để có gia tăng tỷ lệ
+  chuyển đổi chúng ta nên cải thiện trải nghiệm người dùng, tối ưu hóa trang web, tối ưu hóa trình điều hướng, cải thiện nội dung, hoặc thậm chí là thay đổi chiến dịch tiếp thị
+  để thu hút khách hàng tiềm năng chất lượng cao hơn.
+
+	  
 
 
 
