@@ -137,11 +137,11 @@
 		Create temporary table session_w_landing_home_page1
 		Select 
 			first_pageviews.website_session_id,
-	 website_pageviews.pageview_url landing_page
+	 		website_pageviews.pageview_url landing_page
 		From first_pageviews
 			left join website_pageviews
 				on website_pageviews.website_pageview_id = first_pageviews.min_pageview_id
-	 Where
+	 	Where
 			website_pageviews.pageview_url = '/home';
 	    
 		Create temporary table bounced_sessions
