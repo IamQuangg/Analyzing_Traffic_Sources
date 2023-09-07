@@ -169,6 +169,45 @@
   Chúng ta có thể thấy với tỷ lệ thoát 59.18%, điều này có nghĩa là khoảng 59.18% người truy cập đã rời khỏi trang web sau khi chỉ xem một trang duy nhất mà không thực
   hiện thêm bất kỳ hành động nào khác. Tỷ lệ thoát cao có thể là dấu hiệu cho thấy cần phải xem xét và tối ưu hóa trải nghiệm người dùng trên trang web để giảm tỷ lệ thoát
   và tăng khả năng tương tác của người dùng.
+  ## 2.4. Phân Tích Xu Hướng Trang Đích (Landing Page)
+
+	 	create temporary table sessions_w_min_pv
+		select
+			website_sessions.website_session_id,
+	 		Min(website_pageviews.website_pageview_id) first_pageview_id,
+	 		Count(website_pageviews.website_pageview_id) count_pageviews
+		From website_sessions
+		Left Join website_pageviews
+			On website_pageviews.website_session_id = website_sessions.website_session_id
+		Where website_sessions.created_at > '2012-06-01'
+			And website_sessions.created_at <'2012-08-31'
+			And website_sessions.utm_source = 'gsearch'
+			And website_sessions.utm_campaign = 'nonbrand'
+		Group by
+			website_sessions.website_session_id;
+	    
+		Create temporary table session_w_count_lander    
+		Select 
+			sessions_w_min_pv.website_session_id,
+		 	sessions_w_min_pv.first_pageview_id,
+	 		sessions_w_min_pv.count_pageviews,
+		 	website_pageviews.pageview_url landing_page,
+	 		website_pageviews.created_at session_created_at
+		From sessions_w_min_pv
+		Left Join website_pageviews
+			On website_pageviews.website_pageview_id = sessions_w_min_pv.first_pageview_id;
+	        
+		Select
+			min(date(session_created_at)) week_start_date,
+			count(distinct website_session_id) total_sessions,
+			count(distinct case when count_pageviews = 1 then website_session_id Else Null End) bounced_sessions,
+			count(distinct case when count_pageviews = 1 then website_session_id Else Null End) /  count(distinct website_session_id) * 100 bounced_rt,
+			count(distinct case when landing_page = '/home' then website_session_id else Null End) home_sessions,
+			count(distinct case when landing_page = '/lander-1' then website_session_id else null end) lander_sessions
+		From session_w_count_lander  
+		Group by
+			yearweek(session_created_at)
+
 
   
 
