@@ -81,7 +81,10 @@
 
   Based on data provided, desktop performs way better than mobile and we should not run the same bid for desktop and mobile traffic, often in paid search campaigns.
   We should increase bids for desktop specific traffic beacause it performs much better.
+ ## 2. Analyzing Website Performance
+ * Analyzing top website content
 
+   Phân tích nội dung trang web liên quan đến việc hiểu rõ những trang nào được người dùng xem nhiều nhất, để xác định nơi cần tập trung để cải trang web của bạn.
 
   
 
