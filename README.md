@@ -114,7 +114,7 @@
 	From first_pageview1
 		Left Join website_pageviews
 			On first_pageview1.min_pv_id = website_pageviews.website_pageview_id
-	Where website_pageviews.created_at < '2012-06-12'
+	Where website_pageviews.created_at < '2021-06-12'
 	Group by 
 		pageview_url
   ![image](https://github.com/IamQuangg/Analyzing_Traffic_Sources/assets/128073066/37f46bec-d6d5-4f73-83ee-a72495dafac2)
